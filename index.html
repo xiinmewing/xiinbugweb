@@ -3,146 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Král xiin - Access Protocol</title>
+  <title>Kral Xiin Virus Prank</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       background-color: #000;
+      color: #0f0;
       font-family: monospace;
+      padding: 2rem;
+      overflow: hidden;
     }
-    .glow {
-      text-shadow: 0 0 5px #8a2be2, 0 0 15px #8a2be2;
+    #terminal {
+      white-space: pre-line;
+      line-height: 1.5;
+      font-size: 1rem;
     }
-    .fade-in {
-      animation: fadeIn 1s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .terminal-blink {
-      animation: blink 1s step-start infinite;
-    }
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-    .glass {
-      background: rgba(18, 18, 30, 0.6);
-      backdrop-filter: blur(6px);
-    }
-    .shake {
-      animation: shake 0.4s ease-in-out;
-    }
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
-    .pulse-glow {
-      animation: pulseGlow 1.5s infinite;
-    }
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0;
-      }
-      50% {
-        box-shadow: 0 0 10px #0f0, 0 0 25px #0f0, 0 0 40px #0f0;
-      }
-    }
-    #jumpscare {
+    #prankContainer {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       background: black;
-      display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      display: none;
+      flex-direction: column;
+      z-index: 999;
     }
     video {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 80vw;
+      max-height: 50vh;
     }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center text-purple-300">
-
-  <div id="loginBox" class="w-full max-w-md p-8 glass border border-purple-800 rounded-xl fade-in">
-    <h2 class="text-2xl font-bold text-center glow mb-6">ACCESS PROTOCOL</h2>
-
-    <form id="loginForm" class="space-y-5" onsubmit="return validateLogin(event)">
-      <div>
-        <label class="block mb-1 text-sm text-purple-400">Username</label>
-        <input id="username" type="text" class="w-full px-4 py-2 bg-black border border-purple-500 text-white rounded" placeholder="ID:Kral01X" />
-      </div>
-      <div>
-        <label class="block mb-1 text-sm text-purple-400">Passphrase</label>
-        <input id="password" type="password" class="w-full px-4 py-2 bg-black border border-purple-500 text-white rounded" placeholder="••••••••" />
-      </div>
-      <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-black font-bold py-2 rounded shadow">
-        Authenticate
-      </button>
-    </form>
-
-    <p id="status" class="text-xs text-center mt-6 text-purple-700">Terminal Log: waiting for secure handshake<span class="terminal-blink">_</span></p>
-  </div>
-
-  <div id="dashboard" class="hidden text-green-400 text-center fade-in">
-    <h1 class="text-3xl font-bold glow">🧠 Král xiin: Neural Vault</h1>
-    <p class="mt-4">Access Level: <span class="text-lime-400">X-Class</span></p>
-    <p class="mt-2">Welcome back, <strong>Karlxiin</strong>. Your access is unrestricted.</p>
-    <div class="mt-6 text-sm text-purple-400">
-      <p>▶ Loading encrypted archives...</p>
-      <p>▶ Decoding subsystem logs...</p>
-      <p>▶ Surveillance mode: <span class="text-red-500">ACTIVE</span></p>
-    </div>
-  </div>
-
-  <div id="jumpscare">
-    <video src="meme-jumpscare.mp4" autoplay></video>
+<body>
+  <div id="terminal"></div>
+  <div id="prankContainer" class="hidden">
+    <video id="prankVideo" controls autoplay>
+      <source src="https://cdn.discordapp.com/attachments/1132964541044039761/1133302569907527730/acumalaka.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <p class="text-green-400 mt-4 text-xl">💀 YOU'VE BEEN PRANKED BY Král xiin 💀</p>
   </div>
 
   <script>
-    function validateLogin(event) {
-      event.preventDefault();
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value.trim();
-      const status = document.getElementById('status');
-      const box = document.getElementById('loginBox');
-      const dashboard = document.getElementById('dashboard');
-      const jumpscare = document.getElementById('jumpscare');
+    const terminal = document.getElementById("terminal");
+    const prank = document.getElementById("prankContainer");
+    const lines = [
+      "[BOOT] Initializing Král xiin access protocol...",
+      "[SYS] Establishing secure uplink...",
+      "[DATA] Breaching internal firewall...",
+      "[ALERT] Unauthorized access detected...",
+      "[SYS] Injecting payload...",
+      "[ERROR] System override detected...",
+      "[WARNING] Virus signature match found...",
+      "[!!!] Running Trojan.Xiin.v3...",
+      "[!!!] Kernel panic: hijack confirmed"
+    ];
 
-      if (user === 'Karlxiin' && pass === 'xiin') {
-        status.innerHTML = 'Access Granted. Initializing secure channel<span class="terminal-blink">_</span>';
-        status.classList.remove('text-purple-700', 'text-red-500');
-        status.classList.add('text-green-400');
-        box.classList.remove('shake');
-        box.classList.add('pulse-glow');
-
-        setTimeout(() => {
-          box.style.display = 'none';
-          dashboard.classList.remove('hidden');
-
-          // Trigger jumpscare after delay
-          setTimeout(() => {
-            jumpscare.style.display = 'flex';
-          }, 4000);
-
-        }, 1200);
+    let idx = 0;
+    function typeLine() {
+      if (idx < lines.length) {
+        terminal.innerHTML += lines[idx] + "\n";
+        idx++;
+        setTimeout(typeLine, 1200);
       } else {
-        status.innerHTML = 'Access Denied. Invalid credentials<span class="terminal-blink">_</span>';
-        status.classList.remove('text-purple-700', 'text-green-400');
-        status.classList.add('text-red-500');
-        box.classList.remove('pulse-glow');
-        box.classList.add('shake');
-        setTimeout(() => box.classList.remove('shake'), 500);
+        setTimeout(() => {
+          terminal.style.display = "none";
+          prank.classList.remove("hidden");
+          prank.classList.add("flex");
+        }, 1000);
       }
     }
+
+    window.onload = typeLine;
   </script>
 </body>
 </html>
